@@ -1,10 +1,23 @@
 // src/services/itemService.js
 let itemsDB = [
-    { id: 'ITEM-01', name: 'Kacamata Hitam', isFree: true, price: 0, imageUrl: 'https://placehold.co/100x100/000000/FFFFFF?text=Kacamata' },
-    { id: 'ITEM-02', name: 'Topi Pantai', isFree: true, price: 0, imageUrl: 'https://placehold.co/100x100/f4a261/FFFFFF?text=Topi' },
-    { id: 'ITEM-03', name: 'Bando Lucu', isFree: true, price: 0, imageUrl: 'https://placehold.co/100x100/e76f51/FFFFFF?text=Bando' },
-    { id: 'ITEM-04', name: 'Baju Kostum Sekolah', isFree: false, price: 15000, imageUrl: 'https://placehold.co/100x100/2a9d8f/FFFFFF?text=Kostum' },
-    { id: 'ITEM-05', name: 'Cetak Foto 4R (per lembar)', isFree: false, price: 2500, imageUrl: 'https://placehold.co/100x100/264653/FFFFFF?text=Cetak' },
+    { 
+        id: 'ITEM-01', name: 'Kacamata Hitam', imageUrl: 'https://placehold.co/100x100/000000/FFFFFF?text=Kacamata',
+        isFree: true, price: 0, 
+        trackQuantity: false, // <-- Field baru: tidak perlu lacak stok
+        quantity: 0 
+    },
+    { 
+        id: 'ITEM-04', name: 'Baju Kostum Sekolah', imageUrl: 'https://placehold.co/100x100/2a9d8f/FFFFFF?text=Kostum',
+        isFree: false, price: 15000, 
+        trackQuantity: true, // <-- Field baru: lacak stok
+        quantity: 3 // <-- Jumlah stok yang tersedia
+    },
+    { 
+        id: 'ITEM-05', name: 'Cetak Foto 4R', imageUrl: 'https://placehold.co/100x100/264653/FFFFFF?text=Cetak',
+        isFree: false, price: 2500, 
+        trackQuantity: false, // Ini adalah layanan, bukan barang fisik
+        quantity: 0 
+    },
 ];
 
 const itemService = {
@@ -15,9 +28,6 @@ const itemService = {
     async createItem(newItemData) {
         await new Promise(resolve => setTimeout(resolve, 300));
         const newItem = { id: `ITEM-${Date.now()}`, ...newItemData };
-        if (newItem.isFree) {
-            newItem.price = 0;
-        }
         itemsDB.push(newItem);
         return newItem;
     },
@@ -26,9 +36,6 @@ const itemService = {
         const index = itemsDB.findIndex(p => p.id === itemId);
         if (index !== -1) {
             itemsDB[index] = { ...itemsDB[index], ...updatedData };
-            if (itemsDB[index].isFree) {
-                itemsDB[index].price = 0;
-            }
             return itemsDB[index];
         }
         throw new Error("Item not found");

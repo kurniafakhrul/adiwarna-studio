@@ -17,7 +17,7 @@ const formatCurrency = (value) => {
           <tr>
             <th scope="col" class="px-6 py-3">Gambar</th>
             <th scope="col" class="px-6 py-3">Nama Item</th>
-            <th scope="col" class="px-6 py-3">Tipe</th>
+            <th scope="col" class="px-6 py-3">Stok</th>
             <th scope="col" class="px-6 py-3">Harga</th>
             <th scope="col" class="px-6 py-3 text-right">Aksi</th>
           </tr>
@@ -29,11 +29,14 @@ const formatCurrency = (value) => {
             </td>
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ item.name }}</th>
             <td class="px-6 py-4">
-              <span :class="item.isFree ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'" class="px-2 py-1 font-semibold leading-tight rounded-full text-xs">
-                {{ item.isFree ? 'Gratis' : 'Berbayar' }}
+              <span v-if="item.trackQuantity" :class="item.quantity > 0 ? 'text-green-600' : 'text-red-600'" class="font-semibold">
+                {{ item.quantity }} tersedia
+              </span>
+              <span v-else class="text-gray-500">
+                Tak Terbatas
               </span>
             </td>
-            <td class="px-6 py-4">{{ item.isFree ? '-' : formatCurrency(item.price) }}</td>
+            <td class="px-6 py-4">{{ item.isFree ? 'Gratis' : formatCurrency(item.price) }}</td>
             <td class="px-6 py-4 text-right">
               <button @click="$emit('edit', item)" class="font-medium text-brand-gold hover:underline mr-4">Edit</button>
               <button @click="$emit('delete', item)" class="font-medium text-red-600 hover:underline">Hapus</button>
