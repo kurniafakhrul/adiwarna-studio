@@ -8,7 +8,7 @@ const props = defineProps({
   packages: { type: Array, required: true },
   items: { type: Array, required: true },
 })
-const emit = defineEmits(['close', 'update-status'])
+const emit = defineEmits(['close', 'update-status', 'edit'])
 
 const formatCurrency = (value) => `Rp ${value?.toLocaleString('id-ID') || 0}`
 const formatDate = (dateString) =>
@@ -31,13 +31,11 @@ const getStatusStep = (status) => {
 const currentStep = computed(() => getStatusStep(props.booking.status))
 </script>
 <template>
-  <!-- Overlay -->
   <div
     @click="$emit('close')"
     v-if="isOpen"
     class="fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity"
   ></div>
-  <!-- Panel -->
   <div
     :class="isOpen ? 'translate-x-0' : 'translate-x-full'"
     class="fixed top-0 right-0 w-full max-w-lg h-full bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out"
@@ -132,7 +130,12 @@ const currentStep = computed(() => getStatusStep(props.booking.status))
             <p class="text-sm text-gray-500">Keterangan</p>
             <p class="font-medium">{{ booking.notes || '-' }}</p>
           </div>
-          <button class="text-sm text-blue-600 hover:underline self-end">Ubah Status</button>
+          <button
+            @click="$emit('update-status', 'SELESAI')"
+            class="text-sm text-blue-600 hover:underline self-end"
+          >
+            Ubah Status
+          </button>
         </div>
 
         <!-- Rincian Pesanan -->
@@ -155,17 +158,19 @@ const currentStep = computed(() => getStatusStep(props.booking.status))
                 <span class="text-gray-500">Harga</span>
                 <span class="font-medium">{{ formatCurrency(currentPackage.basePrice) }}</span>
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between items-center">
                 <span class="text-gray-500">Yang sudah dibayarkan</span>
-                <span class="font-medium">{{ formatCurrency(booking.downPaymentAmount) }}</span>
+                <div class="flex items-center space-x-3">
+                  <span class="font-medium">{{ formatCurrency(booking.downPaymentAmount) }}</span>
+                  <a
+                    v-if="booking.downPaymentUrl"
+                    :href="booking.downPaymentUrl"
+                    target="_blank"
+                    class="text-sm text-blue-600 hover:underline font-semibold"
+                    >Lihat Bukti</a
+                  >
+                </div>
               </div>
-              <a
-                v-if="booking.downPaymentUrl"
-                :href="booking.downPaymentUrl"
-                target="_blank"
-                class="text-sm text-blue-600 hover:underline mt-2 inline-block font-semibold"
-                >Lihat Bukti</a
-              >
             </div>
           </div>
           <div v-if="booking.additions?.items?.length > 0">
@@ -198,6 +203,10 @@ const currentStep = computed(() => getStatusStep(props.booking.status))
                 <span class="text-gray-500">Waktu</span>
                 <span class="font-medium">{{ formatTime(booking.scheduledAt) }}</span>
               </div>
+              <div class="flex justify-between">
+                <span class="text-gray-500">Durasi</span>
+                <span class="font-medium">{{ booking.duration }} Menit</span>
+              </div>
             </div>
           </div>
           <div>
@@ -208,12 +217,25 @@ const currentStep = computed(() => getStatusStep(props.booking.status))
                 <span class="font-medium">{{ booking.clientName }}</span>
               </div>
               <div class="flex justify-between">
+                <span class="text-gray-500">Nomor Handphone</span>
+                <span class="font-medium">{{ booking.clientContact }}</span>
+              </div>
+              <div v-if="booking.clientEmail" class="flex justify-between">
                 <span class="text-gray-500">Email</span>
                 <span class="font-medium">{{ booking.clientEmail }}</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <!-- Tombol Aksi di Bagian Bawah Panel -->
+      <div class="mt-6 pt-4 border-t">
+        <button
+          @click="$emit('edit')"
+          class="w-full px-4 py-2 text-sm font-bold text-white bg-brand-dark-blue rounded-md hover:opacity-90"
+        >
+          Edit Pesanan Ini
+        </button>
       </div>
     </div>
   </div>

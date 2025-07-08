@@ -6,16 +6,17 @@ import { usePackageStore } from '@/stores/packageStore'
 import { useItemStore } from '@/stores/itemStore'
 import BookingsTable from '@/components/bookings/BookingsTable.vue'
 import BookingDetailPanel from '@/components/bookings/BookingDetailPanel.vue'
+import BookingFormModal from '@/components/bookings/BookingFormModal.vue'
 
 const bookingStore = useBookingStore()
 const packageStore = usePackageStore()
 const itemStore = useItemStore()
 
 const isDetailPanelOpen = ref(false)
+const isFormModalOpen = ref(false)
 const selectedBooking = ref(null)
 
 onMounted(() => {
-  // Ambil semua data yang dibutuhkan oleh halaman ini dan panel detailnya
   bookingStore.fetchBookings()
   packageStore.fetchPackages()
   itemStore.fetchAll()
@@ -26,9 +27,42 @@ function viewDetails(booking) {
   isDetailPanelOpen.value = true
 }
 
-function closePanel() {
-  isDetailPanelOpen.value = false
+function openAddModal() {
   selectedBooking.value = null
+  isFormModalOpen.value = true
+}
+
+function openEditModal(booking) {
+  selectedBooking.value = booking
+  isDetailPanelOpen.value = false // Tutup panel detail jika terbuka
+  isFormModalOpen.value = true
+}
+
+function closeModal() {
+  isDetailPanelOpen.value = false
+  isFormModalOpen.value = false
+  selectedBooking.value = null
+}
+
+async function handleFormSubmit(formData) {
+  if (selectedBooking.value) {
+    // Mode Edit
+    await bookingStore.updateBooking(selectedBooking.value.id, formData)
+  } else {
+    // Mode Create
+    await bookingStore.addBooking(formData)
+  }
+  closeModal()
+}
+
+async function handleStatusUpdate(newStatus) {
+  if (selectedBooking.value) {
+    await bookingStore.updateBooking(selectedBooking.value.id, {
+      ...selectedBooking.value,
+      status: newStatus,
+    })
+    selectedBooking.value.status = newStatus // Update tampilan di panel
+  }
 }
 </script>
 <template>
@@ -36,6 +70,7 @@ function closePanel() {
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-brand-dark-blue">Pesanan</h1>
       <button
+        @click="openAddModal"
         class="inline-flex items-center px-4 py-2 text-sm font-bold text-white bg-brand-dark-blue rounded-md hover:opacity-90"
       >
         + Pesanan Manual
@@ -57,12 +92,25 @@ function closePanel() {
     </div>
 
     <BookingDetailPanel
-      v-if="selectedBooking"
+      v-if="selectedBooking && isDetailPanelOpen"
       :is-open="isDetailPanelOpen"
       :booking="selectedBooking"
       :packages="packageStore.packages"
       :items="itemStore.items"
-      @close="closePanel"
+      @close="closeModal"
+      @edit="openEditModal(selectedBooking)"
+      @update-status="handleStatusUpdate"
+    />
+
+    <BookingFormModal
+      v-if="isFormModalOpen"
+      :is-open="isFormModalOpen"
+      :booking-data="selectedBooking"
+      :packages="packageStore.packages"
+      :attributes="itemStore.attributes"
+      :items="itemStore.items"
+      @close="closeModal"
+      @submit="handleFormSubmit"
     />
   </div>
 </template>
