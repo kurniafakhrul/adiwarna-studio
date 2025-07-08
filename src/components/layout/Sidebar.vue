@@ -2,7 +2,7 @@
   <!-- Menggunakan warna hitam kustom untuk background sidebar -->
   <div class="flex flex-col w-64 bg-brand-dark">
     <div class="flex items-center justify-center h-16 border-b border-gray-700">
-      <span class="text-white font-bold uppercase tracking-wider">Studio Admin</span>
+      <span class="text-white font-bold uppercase tracking-wider">Studio Adiwarna</span>
     </div>
     <div class="flex flex-col flex-1 overflow-y-auto">
       <nav class="flex-1 px-2 py-4">
