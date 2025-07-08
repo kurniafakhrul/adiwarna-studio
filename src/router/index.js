@@ -3,7 +3,6 @@ import HomeView from '../views/HomeView.vue'; // Ini akan menjadi Dashboard kita
 import ItemsView from '../views/ItemsView.vue'; // <-- Impor view baru
 import LoginView from '../views/LoginView.vue';
 import PackagesView from '../views/PackagesView.vue'; // <-- Impor view baru
-import SelfFotoView from '../views/SelfFotoView.vue'; // <-- Impor view baru
 import UsersView from '../views/UsersView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,23 +22,12 @@ const router = createRouter({
         layout: 'DashboardLayout' // <-- TAMBAHKAN INI
       } 
     },
-    {
-  path: '/self-foto',
-  name: 'self-foto',
-  component: SelfFotoView,
-  meta: { 
-    requiresAuth: true,
-    layout: 'DashboardLayout'
-  }
-},
-    {
+  
+{
   path: '/packages',
   name: 'packages',
   component: PackagesView,
-  meta: { 
-    requiresAuth: true,
-    layout: 'DashboardLayout'
-  }
+  meta: { requiresAuth: true, layout: 'DashboardLayout' }
 },
 
     {

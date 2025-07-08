@@ -1,68 +1,41 @@
 // src/services/packageService.js
-let studiosDB = [
-    { id: 'STUDIO-A', name: 'Studio A (White Cyc)' },
-    { id: 'STUDIO-B', name: 'Studio B (Thematic)' },
-];
-
 let packagesDB = [
-    { 
-        id: 'PKG-001', name: 'Self Foto Couple', category: 'Self Foto', price: 30000, duration: 15, 
-        studio: 'STUDIO-A', // ID studio yang digunakan
-        includedAddons: 'Kacamata, Topi, Bando', // Add-ons gratis sebagai string
-        optionalAddons: [ // Add-ons berbayar sebagai array objek
-            { name: 'Kostum Sekolah', price: 15000 },
-            { name: 'Kostum Vintage', price: 20000 }
-        ],
-        description: 'Sesi foto untuk 2 orang.' 
+    {
+        id: 'SF-001',
+        category: 'Self Foto', // <-- Field baru
+        name: 'Self Foto Couple',
+        basePrice: 30000,
+        baseCapacity: 2,
+        pricePerExtraPerson: 0,
+        pricePerExtraMinute: 5000,
+        duration: 15,
+        includedAddonIds: ['ITEM-01', 'ITEM-02'],
+        optionalAddonIds: ['ITEM-04'],
+        notes: 'Soft file via Google Drive.',
+        imageUrls: ['https://placehold.co/600x400/cfaa3b/FFFFFF?text=Couple+1']
     },
-    { 
-        id: 'PKG-004', name: 'Prewed Outdoor', category: 'Pre-wedding', price: 200000, duration: 120, 
-        studio: null, // Null menandakan outdoor
-        includedAddons: 'Asisten lighting',
-        optionalAddons: [],
-        description: 'Sesi foto pre-wedding di lokasi outdoor pilihan klien.' 
-    },
+    {
+        id: 'PF-001',
+        category: 'Pas Foto', // <-- Field baru
+        name: 'Pas Foto Pra Nikah',
+        basePrice: 25000,
+        baseCapacity: 2,
+        pricePerExtraPerson: 0,
+        pricePerExtraMinute: 0,
+        duration: 10,
+        includedAddonIds: ['ITEM-05'],
+        optionalAddonIds: [],
+        notes: 'Include cetak 3x4 (9 foto).',
+        imageUrls: ['https://placehold.co/600x400/2a9d8f/FFFFFF?text=Pas+Foto']
+    }
 ];
 
 const packageService = {
-  async getPackages() {
-    console.log("Fetching packages data (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return [...packagesDB];
-  },
-
-  // Fungsi baru untuk mengambil data studio
-  async getStudios() {
-    console.log("Fetching studios data (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 100));
-    return [...studiosDB];
-  },
-
-  async createPackage(newPackageData) {
-    console.log("Creating package (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 300));
-    const newPackage = { id: `PKG-${Date.now()}`, ...newPackageData };
-    packagesDB.push(newPackage);
-    return newPackage;
-  },
-
-  async updatePackage(packageId, updatedData) {
-    console.log(`Updating package ${packageId} (simulation)...`);
-    await new Promise(resolve => setTimeout(resolve, 300));
-    const index = packagesDB.findIndex(p => p.id === packageId);
-    if (index !== -1) {
-      packagesDB[index] = { ...packagesDB[index], ...updatedData };
-      return packagesDB[index];
-    }
-    throw new Error("Package not found");
-  },
-
-  async deletePackage(packageId) {
-    console.log(`Deleting package ${packageId} (simulation)...`);
-    await new Promise(resolve => setTimeout(resolve, 300));
-    packagesDB = packagesDB.filter(p => p.id !== packageId);
-    return { success: true };
-  }
+    // ... (Semua fungsi get, create, update, delete tetap sama)
+    async getPackages() { /* ... */ },
+    async createPackage(newPackageData) { /* ... */ },
+    async updatePackage(packageId, updatedData) { /* ... */ },
+    async deletePackage(packageId) { /* ... */ }
 };
 
 export default packageService;

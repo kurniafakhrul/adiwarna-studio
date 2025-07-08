@@ -1,29 +1,46 @@
-// src/stores/packageStore.js
-import packageService from '@/services/packageService';
+// src/stores/selfFotoStore.js
+import packageService from '@/services/packageService'; // <-- Pastikan path ini benar
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const usePackageStore = defineStore('package', () => {
-  const packages = ref([]);
-  const studios = ref([]); // <-- State baru untuk studio
-  const isLoading = ref(false);
-  const error = ref(null);
+export const usePackageStore = defineStore('package', () => { // <-- Ubah nama store
+    const packages = ref([]);
+    const isLoading = ref(false);
+    const error = ref(null);
 
-  async function fetchPackages() { /* ... (tetap sama) ... */ }
-
-  // Action baru untuk mengambil data studio
-  async function fetchStudios() {
-    try {
-        const data = await packageService.getStudios();
-        studios.value = data;
-    } catch(e) {
-        console.error("Gagal mengambil data studio:", e);
+    async function fetchPackages() {
+        isLoading.value = true;
+        error.value = null;
+        try {
+            packages.value = await packageService.getPackages();
+        } catch (e) {
+            error.value = 'Gagal mengambil data paket Self Foto.';
+        } finally {
+            isLoading.value = false;
+        }
     }
-  }
 
-  async function addPackage(newPackageData) { /* ... (tetap sama) ... */ }
-  async function updatePackage(packageId, updatedData) { /* ... (tetap sama) ... */ }
-  async function deletePackage(packageId) { /* ... (tetap sama) ... */ }
+    async function addPackage(newPackageData) {
+        try {
+            const newPackage = await packageService.createPackage(newPackageData);
+            packages.value.push(newPackage);
+        } catch (e) { console.error(e); }
+    }
 
-  return { packages, studios, isLoading, error, fetchPackages, fetchStudios, addPackage, updatePackage, deletePackage };
+    async function updatePackage(packageId, updatedData) {
+        try {
+            const updatedPackage = await packageService.updatePackage(packageId, updatedData);
+            const index = packages.value.findIndex(p => p.id === packageId);
+            if (index !== -1) packages.value[index] = updatedPackage;
+        } catch (e) { console.error(e); }
+    }
+
+    async function deletePackage(packageId) {
+        try {
+            await packageService.deletePackage(packageId);
+            packages.value = packages.value.filter(p => p.id !== packageId);
+        } catch (e) { console.error(e); }
+    }
+
+    return { packages, isLoading, error, fetchPackages, addPackage, updatePackage, deletePackage };
 });
