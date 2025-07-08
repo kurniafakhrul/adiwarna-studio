@@ -1,32 +1,44 @@
 <!-- src/components/layout/Sidebar.vue -->
 <template>
-  <div class="flex flex-col w-64 bg-brand-dark">
-    <div class="flex items-center justify-center h-16 border-b border-gray-700">
-      <span class="text-white font-bold uppercase tracking-wider">Studio Admin</span>
+  <div class="flex flex-col w-64 bg-white border-r border-gray-200">
+    <div class="flex items-center justify-center h-20 border-b border-gray-200">
+      <h1 class="text-xl font-bold text-brand-dark-blue">Adiwarna Studio.</h1>
     </div>
-    <div class="flex flex-col flex-1 overflow-y-auto">
-      <nav class="flex-1 px-2 py-4">
-        <router-link to="/" class="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-md">
-          <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-          Dashboard
+    <div class="flex flex-col flex-1 p-4">
+      <nav class="flex-1 space-y-2">
+        <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Menu</p>
+        <router-link to="/" class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
+          <span class="mr-3">&#128202;</span> Dashboard
         </router-link>
-        <router-link to="/packages" class="flex items-center px-4 py-2 mt-2 text-gray-300 hover:bg-gray-700 rounded-md">
-          <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-          Manajemen Layanan
+        <router-link to="/packages" class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
+          <span class="mr-3">&#128230;</span> Manajemen Layanan
         </router-link>
-        <router-link to="/attributes" class="flex items-center px-4 py-2 mt-2 text-gray-300 hover:bg-gray-700 rounded-md">
-          <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
-          Atribut
+        <router-link to="/attributes" class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
+          <span class="mr-3">&#127991;</span> Atribut
         </router-link>
       </nav>
+      <!-- User Profile Section -->
+      <div class="mt-auto">
+        <div class="p-4 bg-brand-light-blue rounded-lg flex items-center">
+            <div class="w-10 h-10 bg-brand-dark-blue text-white flex items-center justify-center rounded-full font-bold">
+                JD
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-semibold text-brand-dark-blue">Jackson Dunn</p>
+                <p class="text-xs text-gray-500">Administrator</p>
+            </div>
+        </div>
+        <button class="w-full mt-4 flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
+            <span class="mr-3">&#128682;</span> Sign Out
+        </button>
+      </div>
     </div>
   </div>
 </template>
-
 <style scoped>
 .router-link-exact-active {
-  background-color: #cfaa3b; /* brand-gold */
-  color: #1a1a1a; /* brand-dark */
+  background-color: #ECEFFD; /* brand-light-blue */
+  color: #1C274C; /* brand-dark-blue */
   font-weight: 600;
 }
 </style>

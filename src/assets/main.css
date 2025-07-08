@@ -1,3 +1,8 @@
+/* src/assets/main.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-brand-background;
+}
