@@ -5,7 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import PackagesView from '../views/PackagesView.vue'
 import AttributesView from '../views/AttributesView.vue'; // <-- Impor baru
 import AttributeDetailView from '../views/AttributeDetailView.vue'; // <-- Impor baru
-
+import BookingsView from '../views/BookingsView.vue'; // <-- Impor view baru
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,6 +27,13 @@ const router = createRouter({
       component: AttributesView,
       meta: { requiresAuth: true, layout: 'DashboardLayout' }
     },
+    {
+      path: '/bookings',
+      name: 'bookings',
+      component: BookingsView,
+      meta: { requiresAuth: true, layout: 'DashboardLayout' }
+    },
+
     {
       path: '/attributes/:id', // Halaman detail untuk item di dalam atribut
       name: 'attribute-detail',
