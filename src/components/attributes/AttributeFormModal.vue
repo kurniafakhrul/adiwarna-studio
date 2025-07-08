@@ -3,19 +3,19 @@ import { ref, watch, computed } from 'vue';
 
 const props = defineProps({
   isOpen: Boolean,
-  itemData: Object,
+  attributeData: Object,
 });
 const emit = defineEmits(['close', 'submit']);
 const form = ref({});
 const imagePreview = ref(null);
-const modalTitle = computed(() => props.itemData ? 'Edit Item' : 'Tambah Item Baru');
+const modalTitle = computed(() => props.attributeData ? 'Edit Atribut' : 'Tambah Atribut Baru');
 
-watch(() => props.itemData, (newData) => {
+watch(() => props.attributeData, (newData) => {
   if (newData) {
     form.value = { ...newData };
     imagePreview.value = newData.imageUrl;
   } else {
-    form.value = { name: '', isFree: true, price: 0, imageUrl: null, trackQuantity: false, quantity: 0 };
+    form.value = { name: '', imageUrl: null };
     imagePreview.value = null;
   }
 }, { immediate: true, deep: true });
@@ -33,8 +33,6 @@ function handleFileChange(event) {
 }
 
 function handleSubmit() {
-  if (!form.value.trackQuantity) { form.value.quantity = 0; }
-  if (form.value.isFree) { form.value.price = 0; }
   emit('submit', form.value);
 }
 </script>
@@ -45,7 +43,7 @@ function handleSubmit() {
       <h2 class="text-2xl font-bold text-brand-dark mb-6">{{ modalTitle }}</h2>
       <form @submit.prevent="handleSubmit" class="space-y-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Gambar Item</label>
+          <label class="block text-sm font-medium text-gray-700">Gambar Atribut</label>
           <div class="mt-1 flex items-center space-x-4">
             <img v-if="imagePreview" :src="imagePreview" alt="Preview" class="w-20 h-20 object-cover rounded-md bg-gray-100">
             <div v-else class="w-20 h-20 flex items-center justify-center bg-gray-100 rounded-md text-gray-400">
@@ -55,34 +53,12 @@ function handleSubmit() {
           </div>
         </div>
         <div>
-          <label for="name" class="block text-sm font-medium text-gray-700">Nama Item</label>
+          <label for="name" class="block text-sm font-medium text-gray-700">Nama Atribut</label>
           <input v-model="form.name" id="name" type="text" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
         </div>
-        <fieldset class="border p-4 rounded-md">
-            <legend class="text-sm font-medium text-gray-900 px-1">Manajemen Stok</legend>
-            <div class="flex items-center mt-2">
-                <input v-model="form.trackQuantity" id="trackQuantity" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-brand-gold focus:ring-brand-gold" />
-                <label for="trackQuantity" class="ml-2 block text-sm text-gray-900">Lacak jumlah stok item ini</label>
-            </div>
-            <div v-if="form.trackQuantity" class="mt-4">
-                <label for="quantity" class="block text-sm font-medium text-gray-700">Jumlah Stok Tersedia</label>
-                <input v-model.number="form.quantity" id="quantity" type="number" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </div>
-        </fieldset>
-        <fieldset class="border p-4 rounded-md">
-            <legend class="text-sm font-medium text-gray-900 px-1">Pengaturan Harga</legend>
-            <div class="flex items-center mt-2">
-                <input v-model="form.isFree" id="isFree" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-brand-gold focus:ring-brand-gold" />
-                <label for="isFree" class="ml-2 block text-sm text-gray-900">Item ini gratis</label>
-            </div>
-            <div v-if="!form.isFree" class="mt-4">
-                <label for="price" class="block text-sm font-medium text-gray-700">Harga</label>
-                <input v-model.number="form.price" id="price" type="number" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-            </div>
-        </fieldset>
         <div class="mt-8 flex justify-end space-x-4">
           <button type="button" @click="$emit('close')" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">Batal</button>
-          <button type="submit" class="px-4 py-2 text-sm font-bold text-brand-dark bg-brand-gold rounded-md hover:opacity-90">Simpan Item</button>
+          <button type="submit" class="px-4 py-2 text-sm font-bold text-brand-dark bg-brand-gold rounded-md hover:opacity-90">Simpan Atribut</button>
         </div>
       </form>
     </div>
