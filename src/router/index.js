@@ -41,6 +41,24 @@ const router = createRouter({
   ]
 })
 
-// ... (router.beforeEach tetap sama)
+router.beforeEach((to, from, next) => {
+  // Cek apakah rute yang dituju memerlukan otentikasi
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  
+  // Cek apakah ada token di localStorage (simulasi pengguna sudah login)
+  const isAuthenticated = localStorage.getItem('auth_token');
+
+  if (requiresAuth && !isAuthenticated) {
+    // Jika rute butuh otentikasi TAPI pengguna belum login,
+    // arahkan ke halaman login.
+    next({ name: 'login' });
+  } else if (to.name === 'login' && isAuthenticated) {
+    // Jika pengguna sudah login dan mencoba mengakses halaman login,
+    // arahkan mereka kembali ke dashboard.
+    next({ name: 'home' });
+  } else {
+    // Jika semua kondisi aman, izinkan navigasi.
+    next();
+  }});
 
 export default router

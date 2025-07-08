@@ -71,9 +71,12 @@ async function handleFormSubmit(formData) {
                 </div>
             </div>
             <div class="flex justify-end mb-6">
-                 <button @click="openAddItemModal" class="px-4 py-2 text-sm font-bold text-white bg-brand-dark rounded-md hover:opacity-90">
-                    + Tambah Item
-                </button>
+                <button @click="openAddItemModal" class="inline-flex items-center px-4 py-2 text-sm font-bold text-white bg-brand-dark-blue rounded-md hover:opacity-90 shadow-sm transition">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+    </svg>
+    Tambah Item
+</button>
             </div>
             
             <ItemsTable :items="filteredItems" @edit="openEditItemModal" @delete="handleDeleteItem" />

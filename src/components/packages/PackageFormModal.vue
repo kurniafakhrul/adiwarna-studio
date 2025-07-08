@@ -131,7 +131,9 @@ function handleSubmit() {
         </div>
         <div class="mt-8 flex justify-end space-x-4">
           <button type="button" @click="$emit('close')" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200">Batal</button>
-          <button type="submit" class="px-4 py-2 text-sm font-bold text-brand-dark bg-brand-gold rounded-md hover:opacity-90">Simpan Layanan</button>
+          <button type="submit" class="px-4 py-2 text-sm font-bold text-white bg-brand-dark-blue rounded-md hover:opacity-90">
+  Simpan Layanan
+</button>
         </div>
       </form>
     </div>

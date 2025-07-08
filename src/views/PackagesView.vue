@@ -51,11 +51,13 @@ async function handleFormSubmit(formData) {
 <template>
     <div>
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-3xl font-bold text-brand-dark">Manajemen Layanan</h1>
-            <button @click="openAddModal" class="px-4 py-2 text-sm font-bold text-brand-dark bg-brand-gold rounded-md">
-                + Tambah Layanan Baru
-            </button>
-        </div>
+    <!-- Ganti text-brand-dark menjadi text-brand-dark-blue -->
+    <h1 class="text-3xl font-bold text-brand-dark-blue">Manajemen Layanan</h1>
+    <!-- Ganti class tombol -->
+    <button @click="openAddModal" class="px-4 py-2 text-sm font-bold text-white bg-brand-dark-blue rounded-md hover:opacity-90">
+        + Tambah Layanan Baru
+    </button>
+</div>
 
         <div v-if="packageStore.isLoading || itemStore.isLoading" class="mt-6 text-center text-gray-500">
             Loading data...
