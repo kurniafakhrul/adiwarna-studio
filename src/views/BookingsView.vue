@@ -7,6 +7,7 @@ import { useItemStore } from '@/stores/itemStore'
 import BookingsTable from '@/components/bookings/BookingsTable.vue'
 import BookingDetailPanel from '@/components/bookings/BookingDetailPanel.vue'
 import BookingFormModal from '@/components/bookings/BookingFormModal.vue'
+import StatusUpdateModal from '@/components/bookings/StatusUpdateModal.vue' // <-- 1. Impor modal baru
 
 const bookingStore = useBookingStore()
 const packageStore = usePackageStore()
@@ -14,6 +15,7 @@ const itemStore = useItemStore()
 
 const isDetailPanelOpen = ref(false)
 const isFormModalOpen = ref(false)
+const isStatusModalOpen = ref(false) // <-- 2. State untuk modal status
 const selectedBooking = ref(null)
 
 onMounted(() => {
@@ -34,35 +36,41 @@ function openAddModal() {
 
 function openEditModal(booking) {
   selectedBooking.value = booking
-  isDetailPanelOpen.value = false // Tutup panel detail jika terbuka
+  isDetailPanelOpen.value = false
   isFormModalOpen.value = true
+}
+
+// 3. Fungsi untuk membuka modal status
+function openStatusModal() {
+  isDetailPanelOpen.value = false // Tutup panel detail agar tidak tumpang tindih
+  isStatusModalOpen.value = true
 }
 
 function closeModal() {
   isDetailPanelOpen.value = false
   isFormModalOpen.value = false
+  isStatusModalOpen.value = false // <-- Reset state modal status
   selectedBooking.value = null
 }
 
 async function handleFormSubmit(formData) {
   if (selectedBooking.value) {
-    // Mode Edit
     await bookingStore.updateBooking(selectedBooking.value.id, formData)
   } else {
-    // Mode Create
     await bookingStore.addBooking(formData)
   }
   closeModal()
 }
 
+// 4. Fungsi ini sekarang dipanggil oleh modal status
 async function handleStatusUpdate(newStatus) {
   if (selectedBooking.value) {
     await bookingStore.updateBooking(selectedBooking.value.id, {
       ...selectedBooking.value,
       status: newStatus,
     })
-    selectedBooking.value.status = newStatus // Update tampilan di panel
   }
+  closeModal()
 }
 </script>
 <template>
@@ -99,7 +107,7 @@ async function handleStatusUpdate(newStatus) {
       :items="itemStore.items"
       @close="closeModal"
       @edit="openEditModal(selectedBooking)"
-      @update-status="handleStatusUpdate"
+      @open-status-modal="openStatusModal"
     />
 
     <BookingFormModal
@@ -107,10 +115,17 @@ async function handleStatusUpdate(newStatus) {
       :is-open="isFormModalOpen"
       :booking-data="selectedBooking"
       :packages="packageStore.packages"
-      :attributes="itemStore.attributes"
-      :items="itemStore.items"
       @close="closeModal"
       @submit="handleFormSubmit"
+    />
+
+    <!-- 5. Render modal status baru -->
+    <StatusUpdateModal
+      v-if="selectedBooking && isStatusModalOpen"
+      :is-open="isStatusModalOpen"
+      :current-status="selectedBooking.status"
+      @close="closeModal"
+      @submit="handleStatusUpdate"
     />
   </div>
 </template>

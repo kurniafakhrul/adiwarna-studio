@@ -8,7 +8,7 @@ const props = defineProps({
   packages: { type: Array, required: true },
   items: { type: Array, required: true },
 })
-const emit = defineEmits(['close', 'update-status', 'edit'])
+const emit = defineEmits(['close', 'open-status-modal', 'edit'])
 
 const formatCurrency = (value) => `Rp ${value?.toLocaleString('id-ID') || 0}`
 const formatDate = (dateString) =>
@@ -130,8 +130,9 @@ const currentStep = computed(() => getStatusStep(props.booking.status))
             <p class="text-sm text-gray-500">Keterangan</p>
             <p class="font-medium">{{ booking.notes || '-' }}</p>
           </div>
+          <!-- Tombol baru untuk membuka modal -->
           <button
-            @click="$emit('update-status', 'SELESAI')"
+            @click="$emit('open-status-modal')"
             class="text-sm text-blue-600 hover:underline self-end"
           >
             Ubah Status
