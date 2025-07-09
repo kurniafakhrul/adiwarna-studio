@@ -1,51 +1,34 @@
 // src/stores/dashboardStore.js
-import dashboardService from '@/services/dashboardService';
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import dashboardService from '@/services/dashboardService'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
 export const useDashboardStore = defineStore('dashboard', () => {
-  // State yang sudah ada
-  const summaryData = ref(null);
-  const isLoadingSummary = ref(false);
-  const chartData = ref(null);
-  const isLoadingChart = ref(false);
-  const error = ref(null);
+  const stats = ref(null)
+  const todaysSchedule = ref([])
+  const chartData = ref(null)
+  const isLoading = ref(false)
+  const error = ref(null)
 
-  // STATE BARU UNTUK RIWAYAT PEMESANAN
-  const recentBookings = ref([]);
-  const isLoadingBookings = ref(false);
-
-  // ACTIONS
-  async function fetchDashboardData() {
-    isLoadingSummary.value = true;
-    isLoadingChart.value = true;
-    isLoadingBookings.value = true; // <-- Aktifkan loading
-    error.value = null;
-
+  async function fetchAllDashboardData() {
+    isLoading.value = true
+    error.value = null
     try {
-      // Jalankan semua pengambilan data secara paralel
-      const [summary, chart, bookings] = await Promise.all([
-        dashboardService.getSummary(),
+      const [statsData, scheduleData, revenueChartData] = await Promise.all([
+        dashboardService.getStats(),
+        dashboardService.getTodaysSchedule(),
         dashboardService.getRevenueChartData(),
-        dashboardService.getRecentBookings() // <-- Panggil service baru
-      ]);
-      summaryData.value = summary;
-      chartData.value = chart;
-      recentBookings.value = bookings; // <-- Simpan data pemesanan
+      ])
+      stats.value = statsData
+      todaysSchedule.value = scheduleData
+      chartData.value = revenueChartData
     } catch (e) {
-      error.value = 'Gagal mengambil data dashboard.';
+      error.value = 'Gagal memuat data dashboard.'
+      console.error(e)
     } finally {
-      isLoadingSummary.value = false;
-      isLoadingChart.value = false;
-      isLoadingBookings.value = false; // <-- Matikan loading
+      isLoading.value = false
     }
   }
 
-  return { 
-    summaryData, isLoadingSummary,
-    chartData, isLoadingChart,
-    recentBookings, isLoadingBookings, // <-- Ekspor state baru
-    error,
-    fetchDashboardData
-  };
-});
+  return { stats, todaysSchedule, chartData, isLoading, error, fetchAllDashboardData }
+})

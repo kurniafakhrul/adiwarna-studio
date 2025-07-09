@@ -1,46 +1,63 @@
 // src/services/dashboardService.js
+import { bookingsDB } from '@/services/bookingService.js'
+import { packagesDB } from '@/services/packageService.js'
+import { projectsDB } from '@/services/projectService.js'
 
 const dashboardService = {
-  // Fungsi untuk summary cards
-  async getSummary() {
-    console.log("Fetching dashboard summary data (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 800));
+  // Fungsi untuk mengambil data KPI utama
+  async getStats() {
+    await new Promise((r) => setTimeout(r, 300))
+
+    const today = new Date('2025-07-09') // Set tanggal statis untuk konsistensi demo
+    const currentMonth = today.getMonth()
+    const currentYear = today.getFullYear()
+
+    const totalBookingsThisMonth = bookingsDB.filter((b) => {
+      const bookingDate = new Date(b.scheduledAt)
+      return bookingDate.getMonth() === currentMonth && bookingDate.getFullYear() === currentYear
+    }).length
+
+    const revenueThisMonth = bookingsDB
+      .filter((b) => {
+        const bookingDate = new Date(b.scheduledAt)
+        return (
+          b.status === 'SELESAI' &&
+          bookingDate.getMonth() === currentMonth &&
+          bookingDate.getFullYear() === currentYear
+        )
+      })
+      .reduce((acc, booking) => acc + booking.totalPrice, 0)
+
     return {
-      totalBookings: 78,
-      pendingSessions: 12,
-      monthlyRevenue: 12550000,
-    };
+      totalBookings: totalBookingsThisMonth,
+      totalRevenue: revenueThisMonth,
+      totalProjects: projectsDB.length,
+      totalServices: packagesDB.length,
+    }
+  },
+
+  // Fungsi untuk mengambil jadwal khusus hari ini
+  async getTodaysSchedule() {
+    await new Promise((r) => setTimeout(r, 500))
+    const today = new Date('2025-07-09') // Set tanggal statis untuk konsistensi demo
+    return bookingsDB
+      .filter((b) => new Date(b.scheduledAt).toDateString() === today.toDateString())
+      .sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt))
   },
 
   // Fungsi untuk data grafik
   async getRevenueChartData() {
-    console.log("Fetching chart data (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 1200));
-    // Simulasi data pendapatan untuk 7 hari terakhir
+    await new Promise((r) => setTimeout(r, 800))
     return {
-      categories: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+      categories: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
       series: [
         {
           name: 'Pendapatan',
           data: [350000, 500000, 450000, 750000, 600000, 1200000, 950000],
         },
       ],
-    };
+    }
   },
+}
 
-  // Fungsi untuk riwayat pemesanan
-  async getRecentBookings() {
-    console.log("Fetching recent bookings (simulation)...");
-    await new Promise(resolve => setTimeout(resolve, 500)); // Delay lebih cepat
-    // Simulasi data 5 pemesanan terakhir
-    return [
-      { id: 'BK-001', clientName: 'Ahmad Subarjo', packageName: 'Self Foto Grup', date: '2025-07-10', status: 'Selesai' },
-      { id: 'BK-002', clientName: 'Citra Lestari', packageName: 'Prewed Indoor', date: '2025-07-11', status: 'Tertunda' },
-      { id: 'BK-003', clientName: 'Budi Santoso', packageName: 'Pas Foto Pra Nikah', date: '2025-07-11', status: 'Dikonfirmasi' },
-      { id: 'BK-004', clientName: 'Dewi Anggraini', packageName: 'Paket Wisuda', date: '2025-07-12', status: 'Dikonfirmasi' },
-      { id: 'BK-005', clientName: 'Eko Prasetyo', packageName: 'Self Foto Couple', date: '2025-07-12', status: 'Dibatalkan' },
-    ];
-  }
-};
-
-export default dashboardService;
+export default dashboardService

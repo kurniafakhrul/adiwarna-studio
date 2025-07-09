@@ -1,5 +1,5 @@
 // src/services/packageService.js
-let packagesDB = [
+export let packagesDB = [
   {
     id: 'PKG-001',
     category: 'Self Foto',
