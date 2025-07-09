@@ -1,7 +1,7 @@
 <!-- src/components/layout/Sidebar.vue -->
 <script setup>
-import { computed } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { computed } from 'vue'
 
 const authStore = useAuthStore()
 
@@ -36,6 +36,9 @@ function handleLogout() {
           class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
           <span class="mr-3">&#128202;</span> Dashboard
+        </router-link>
+        <router-link to="/projects" class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
+        <span class="mr-3">&#128247;</span> Our Projects
         </router-link>
         <router-link
           to="/bookings"

@@ -1,11 +1,13 @@
 // src/router/index.js
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue'
-import PackagesView from '../views/PackagesView.vue'
-import AttributesView from '../views/AttributesView.vue'; // <-- Impor baru
+import { createRouter, createWebHistory } from 'vue-router';
 import AttributeDetailView from '../views/AttributeDetailView.vue'; // <-- Impor baru
+import AttributesView from '../views/AttributesView.vue'; // <-- Impor baru
 import BookingsView from '../views/BookingsView.vue'; // <-- Impor view baru
+import HomeView from '../views/HomeView.vue';
+import LoginView from '../views/LoginView.vue';
+import PackagesView from '../views/PackagesView.vue';
+import ProjectFormView from '../views/ProjectFormView.vue';
+import ProjectsView from '../views/ProjectsView.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -44,7 +46,25 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
-    }
+    },
+    {
+  path: '/projects',
+  name: 'projects',
+  component: ProjectsView,
+  meta: { requiresAuth: true, layout: 'DashboardLayout' }
+},
+{
+  path: '/projects/add',
+  name: 'project-add',
+  component: ProjectFormView,
+  meta: { requiresAuth: true, layout: 'DashboardLayout' }
+},
+{
+  path: '/projects/edit/:id',
+  name: 'project-edit',
+  component: ProjectFormView,
+  meta: { requiresAuth: true, layout: 'DashboardLayout' }
+}
   ]
 })
 
