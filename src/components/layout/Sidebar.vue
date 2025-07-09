@@ -29,47 +29,153 @@ function handleLogout() {
       <h1 class="text-xl font-bold text-brand-dark-blue">Adiwarna Studio.</h1>
     </div>
     <div class="flex flex-col flex-1 p-4">
-      <nav class="flex-1 space-y-2">
-        <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Menu</p>
+      <nav class="flex-1 space-y-1">
+        <p class="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase">Menu</p>
         <router-link
           to="/"
           class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
-          <span class="mr-3">&#128202;</span> Dashboard
-        </router-link>
-        <router-link
-          to="/hero"
-          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
-        >
-          <span class="mr-3">&#11088;</span> Hero
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+            />
+          </svg>
+          Dashboard
         </router-link>
 
-        <router-link
-          to="/projects"
-          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
-        >
-          <span class="mr-3">&#128247;</span> Our Projects
-        </router-link>
+        <p class="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase">Order</p>
         <router-link
           to="/bookings"
           class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
-          <span class="mr-3">&#128179;</span> Pesanan
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+            />
+          </svg>
+          Pesanan
+        </router-link>
+        <router-link
+          to="/calendar"
+          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+          Kalender
+        </router-link>
+
+        <p class="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase">Website</p>
+        <router-link
+          to="/hero"
+          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+          Hero
+        </router-link>
+        <router-link
+          to="/projects"
+          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+          Our Projects
         </router-link>
         <router-link
           to="/packages"
           class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
-          <span class="mr-3">&#128230;</span> Manajemen Layanan
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+            />
+          </svg>
+          Our Services
         </router-link>
         <router-link
           to="/attributes"
           class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
-          <span class="mr-3">&#127991;</span> Atribut
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"
+            />
+          </svg>
+          Atribut
         </router-link>
       </nav>
-
       <!-- User Profile Section - Sekarang Dinamis -->
       <div class="mt-auto">
         <!-- Tampilkan profil HANYA JIKA data user ada -->
@@ -104,5 +210,3 @@ function handleLogout() {
   font-weight: 600;
 }
 </style>
-
-Hasil Akhir Dengan perubahan ini, masalah Anda akan teratasi. Tombol "S

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AttributeDetailView from '../views/AttributeDetailView.vue' // <-- Impor baru
 import AttributesView from '../views/AttributesView.vue' // <-- Impor baru
 import BookingsView from '../views/BookingsView.vue' // <-- Impor view baru
+import CalendarView from '../views/CalendarView.vue'
 import HeroView from '../views/HeroView.vue'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
@@ -17,6 +18,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { requiresAuth: true, layout: 'DashboardLayout' },
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: CalendarView,
       meta: { requiresAuth: true, layout: 'DashboardLayout' },
     },
     {
