@@ -176,9 +176,8 @@ function handleLogout() {
           Atribut
         </router-link>
       </nav>
-      <!-- User Profile Section - Sekarang Dinamis -->
+      <!-- User Profile Section -->
       <div class="mt-auto">
-        <!-- Tampilkan profil HANYA JIKA data user ada -->
         <div v-if="authStore.user" class="p-4 bg-brand-light-blue rounded-lg flex items-center">
           <div
             class="w-10 h-10 bg-brand-dark-blue text-white flex items-center justify-center rounded-full font-bold"
@@ -190,13 +189,26 @@ function handleLogout() {
             <p class="text-xs text-gray-500">Administrator</p>
           </div>
         </div>
-        <!-- Tampilkan tombol logout JIKA pengguna terotentikasi (punya token) -->
         <button
           v-if="authStore.isAuthenticated"
           @click="handleLogout"
           class="w-full mt-4 flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
         >
-          <span class="mr-3">&#128682;</span> Sign Out
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-3"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+            />
+          </svg>
+          Sign Out
         </button>
       </div>
     </div>
