@@ -37,8 +37,18 @@ function handleLogout() {
         >
           <span class="mr-3">&#128202;</span> Dashboard
         </router-link>
-        <router-link to="/projects" class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md">
-        <span class="mr-3">&#128247;</span> Our Projects
+        <router-link
+          to="/hero"
+          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
+        >
+          <span class="mr-3">&#11088;</span> Hero
+        </router-link>
+
+        <router-link
+          to="/projects"
+          class="flex items-center px-4 py-2 text-gray-600 hover:bg-brand-light-blue rounded-md"
+        >
+          <span class="mr-3">&#128247;</span> Our Projects
         </router-link>
         <router-link
           to="/bookings"
