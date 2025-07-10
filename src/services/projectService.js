@@ -1,4 +1,6 @@
 // src/services/projectService.js
+
+// Database proyek (mock)
 export let projectsDB = [
   {
     id: 'PROJ-001',
@@ -20,21 +22,42 @@ export let projectsDB = [
   },
 ]
 
+// Service object untuk simulasi operasi proyek
 const projectService = {
+  /**
+   * Ambil semua proyek
+   */
   async getProjects() {
     await new Promise((r) => setTimeout(r, 400))
     return [...projectsDB]
   },
+
+  /**
+   * Ambil detail proyek berdasarkan ID
+   */
   async getProjectById(id) {
     await new Promise((r) => setTimeout(r, 200))
-    return projectsDB.find((p) => p.id === id)
+    const found = projectsDB.find((p) => p.id === id)
+    if (!found) throw new Error('Project not found')
+    return found
   },
+
+  /**
+   * Tambahkan proyek baru
+   */
   async createProject(projectData) {
     await new Promise((r) => setTimeout(r, 300))
-    const newProject = { id: `PROJ-${Date.now()}`, ...projectData }
+    const newProject = {
+      id: `PROJ-${Date.now()}`,
+      ...projectData,
+    }
     projectsDB.unshift(newProject)
     return newProject
   },
+
+  /**
+   * Update proyek berdasarkan ID
+   */
   async updateProject(projectId, updatedData) {
     await new Promise((r) => setTimeout(r, 300))
     const index = projectsDB.findIndex((p) => p.id === projectId)
@@ -44,10 +67,18 @@ const projectService = {
     }
     throw new Error('Project not found')
   },
+
+  /**
+   * Hapus proyek berdasarkan ID
+   */
   async deleteProject(projectId) {
     await new Promise((r) => setTimeout(r, 300))
-    projectsDB = projectsDB.filter((p) => p.id !== projectId)
-    return { success: true }
+    const index = projectsDB.findIndex((p) => p.id === projectId)
+    if (index !== -1) {
+      projectsDB.splice(index, 1)
+      return { success: true }
+    }
+    throw new Error('Project not found')
   },
 }
 

@@ -4,9 +4,9 @@ import AttributeDetailView from '../views/AttributeDetailView.vue' // <-- Impor 
 import AttributesView from '../views/AttributesView.vue' // <-- Impor baru
 import BookingsView from '../views/BookingsView.vue' // <-- Impor view baru
 import CalendarView from '../views/CalendarView.vue'
-import HeroView from '../views/HeroView.vue'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
+import OurServicesContentView from '../views/OurServicesContentView.vue'
 import PackagesView from '../views/PackagesView.vue'
 import ProjectFormView from '../views/ProjectFormView.vue'
 import ProjectsView from '../views/ProjectsView.vue'
@@ -18,6 +18,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      meta: { requiresAuth: true, layout: 'DashboardLayout' },
+    },
+    {
+      path: '/our-services-content',
+      name: 'our-services-content',
+      component: OurServicesContentView,
       meta: { requiresAuth: true, layout: 'DashboardLayout' },
     },
     {
@@ -68,12 +74,7 @@ const router = createRouter({
       component: ProjectFormView,
       meta: { requiresAuth: true, layout: 'DashboardLayout' },
     },
-    {
-      path: '/hero',
-      name: 'hero',
-      component: HeroView,
-      meta: { requiresAuth: true, layout: 'DashboardLayout' },
-    },
+
     {
       path: '/projects/edit/:id',
       name: 'project-edit',

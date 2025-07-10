@@ -1,15 +1,26 @@
 // src/services/packageService.js
 export let packagesDB = [
   {
-    id: 'PKG-001',
+    id: 'SF-001',
     category: 'Self Foto',
     name: 'Self Foto Couple',
-    locationType: 'Studio 1', // <-- Field baru
     basePrice: 30000,
     duration: 15,
-    notes: 'Sesi foto standar untuk 2 orang.',
+    locationType: 'Studio 1', // <-- Field baru
+    notes: 'Soft file via Google Drive.',
     imageUrls: ['https://placehold.co/600x400/cfaa3b/FFFFFF?text=Couple+1'],
     attributeIds: ['ATTR-01', 'ATTR-03'],
+  },
+  {
+    id: 'PF-001',
+    category: 'Pas Foto',
+    name: 'Pas Foto Pra Nikah',
+    basePrice: 25000,
+    duration: 10,
+    locationType: 'Studio 2', // <-- Field baru
+    notes: 'Include cetak 3x4 (9 foto).',
+    imageUrls: ['https://placehold.co/600x400/2a9d8f/FFFFFF?text=Pas+Foto'],
+    attributeIds: [],
   },
   {
     id: 'PKG-002',

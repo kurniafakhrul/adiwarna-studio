@@ -1,6 +1,6 @@
 <!-- src/components/packages/PackageFormModal.vue -->
 <script setup>
-import { ref, watch, computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -160,6 +160,16 @@ function handleSubmit() {
                 <span class="ml-2 text-sm">Outdoor</span>
               </label>
             </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Nomor WhatsApp Layanan</label>
+            <input
+              v-model="form.contactWhatsapp"
+              type="text"
+              placeholder="Contoh: 081234567890"
+              required
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            />
           </div>
           <!-- Bagian Memilih Atribut -->
           <div>
