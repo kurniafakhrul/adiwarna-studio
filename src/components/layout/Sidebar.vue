@@ -25,8 +25,8 @@ function handleLogout() {
 
 <template>
   <div class="flex flex-col w-64 bg-white border-r border-gray-200">
-    <div class="flex items-center justify-center h-20 border-b border-gray-200">
-      <h1 class="text-xl font-bold text-brand-dark-blue">Adiwarna Studio.</h1>
+    <div class="flex items-center justify-center h-20 border-b border-gray-200 px-6">
+      <img src="@/assets/logo.svg" alt="Adiwarna Studio Logo" class="h-10 w-auto" />
     </div>
     <div class="flex flex-col flex-1 p-4">
       <nav class="flex-1 space-y-1">
